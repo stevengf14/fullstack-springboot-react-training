@@ -1,13 +1,7 @@
-let firstName = "Pepe";
-firstName = "Andres";
-
-const lastName = "Doe";
-
-const condition = true;
-
-if (condition) {
-  const lastName = "Ale";
-  console.log(lastName);
+function sayHello(name = "Pepe", age = 0) {
+  const greeting = `Hello world function! ${name} age ${age}`;
+  // console.log("Hello world function!");
+  return greeting;
 }
 
-console.log(`Hello world!!! ${firstName} ${lastName}`);
+console.log(sayHello("Andres", 10));
