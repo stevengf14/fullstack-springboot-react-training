@@ -1,5 +1,5 @@
-let name = "Pepe";
-name = "Andres";
+let firstName = "Pepe";
+firstName = "Andres";
 
 const lastName = "Doe";
 
@@ -10,4 +10,4 @@ if (condition) {
   console.log(lastName);
 }
 
-console.log("Hello world!!! " + name + " " + lastName);
+console.log(`Hello world!!! ${firstName} ${lastName}`);
