@@ -1,12 +1,14 @@
-const products = ["table", "chair", "notebook", "keyboard"];
-const products2 = products.concat(["lcd screen", "tv sony"]);
+const user = {
+  username: "andres",
+  email: "andres@mail.com",
+  age: 20,
+  ranking: 9,
+};
 
-// products.push("lcd screen", "tv sony");
+/*const username = user.username;
+const ranking = user.ranking;
+const age = user.age;*/
 
-const fruits = ["apple", "watermelon", "melon", "pear"];
-// const store = [...products2, ...fruits, "potatoes", "grapes"];
+const { username, ranking, age } = user;
 
-const store = products2.concat(fruits).concat("potatoes", "grapes");
-
-console.log(products2);
-console.log(store);
+console.log(`${username} is ${age} years old`, ranking);
