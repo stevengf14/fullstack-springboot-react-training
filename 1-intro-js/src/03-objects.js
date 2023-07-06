@@ -37,10 +37,11 @@ const invoice = {
   },
 };
 
-// const invoice2 = invoice;
-const invoice2 = { ...invoice };
+//invoice.client.name = "Pepe";
+//invoice.total = 5000;
+console.log(invoice);
+console.log(invoice.client);
 
-const result = invoice === invoice2;
-
-if (result) console.log(result);
-else console.log("not equals");
+const greeting = invoice.greeting();
+console.log(greeting);
+console.log("Total: " + invoice.total());
