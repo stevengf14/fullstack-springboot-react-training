@@ -1,14 +1,17 @@
-const average = 5.9;
-const status1 = average >= 5.5 ? "OK" : "Failed";
-console.log(`Result: ${status1}`);
+const products = ["table", "chair", "notebook", "keyboard"];
 
-let max = 0;
+products.push("lcd screen", "tv sony");
 
-const a = 5;
-const b = 8;
-const c = 3;
+console.log(products);
+products.forEach((element) => console.log(element));
+// products.forEach(console.log);
 
-max = a > b ? a : b;
-max = max > c ? max : c;
+for (const product of products) {
+  console.log(product);
+}
 
-console.log(`The largest number is ${max}`);
+for (let i = 0; i < products.length; i++) {
+  console.log(products[i]);
+}
+
+console.log(products[0]);
