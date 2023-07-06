@@ -1,17 +1,12 @@
 const products = ["table", "chair", "notebook", "keyboard"];
+const products2 = products.concat(["lcd screen", "tv sony"]);
 
-products.push("lcd screen", "tv sony");
+// products.push("lcd screen", "tv sony");
 
-console.log(products);
-products.forEach((element) => console.log(element));
-// products.forEach(console.log);
+const fruits = ["apple", "watermelon", "melon", "pear"];
+// const store = [...products2, ...fruits, "potatoes", "grapes"];
 
-for (const product of products) {
-  console.log(product);
-}
+const store = products2.concat(fruits).concat("potatoes", "grapes");
 
-for (let i = 0; i < products.length; i++) {
-  console.log(products[i]);
-}
-
-console.log(products[0]);
+console.log(products2);
+console.log(store);
