@@ -37,10 +37,10 @@ const invoice = {
   },
 };
 
-console.log(invoice.company?.name);
-console.log(invoice.client?.address?.street);
-if (invoice.company?.name) {
-  console.log("perfect!!!");
-} else {
-  console.log("company not set");
-}
+// const invoice2 = invoice;
+const invoice2 = { ...invoice };
+
+const result = invoice === invoice2;
+
+if (result) console.log(result);
+else console.log("not equals");
