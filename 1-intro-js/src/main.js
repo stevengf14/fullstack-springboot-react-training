@@ -1,4 +1,4 @@
-import { invoices, chair, invoiceByClientName } from "./data/invoices";
+import invoiceByClientName, { invoices, chair } from "./data/invoices";
 
 console.log(invoices);
 
@@ -12,10 +12,10 @@ const invoiceById = invoices.find((i) => i.id === 3);
 console.log(invoiceById);
 
 // const invoiceByClientName = invoices.find((i) => i.client.name === "Pepe");
-console.log(invoiceByClientName);
+console.log(invoiceByClientName("Pepe"));
 
 const invoiceFilter = invoices.filter((i) => i.id > 1);
-console.log(invoiceFilter("Pepe"));
+console.log(invoiceFilter);
 
 console.log("filter delete");
 const invoiceDeleted = invoices.filter((i) => i.id != 2);
