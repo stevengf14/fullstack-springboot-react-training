@@ -1,12 +1,13 @@
-const user = {
-  username: "andres",
-  email: "andres@mail.com",
-  age: 20,
-  ranking: 9,
-};
+const users = [
+  "pepe",
+  "ana",
+  "maria",
+  "juan",
+  " sebastian",
+  "carlos",
+  "josefa",
+];
 
-const detail = ({ username, email }) => {
-  console.log(`user detail ${username} with email ${email}`);
-};
+const [pepe, ana, maria, ...others] = users;
 
-detail(user);
+console.log(pepe, ana, maria, ...others);
