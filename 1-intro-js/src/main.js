@@ -4,9 +4,18 @@
 
 const findAllUsers = async () => {
   const response = await fetch("https://jsonplaceholder.typicode.com/users");
-  return await response.json();
+  const users = await response.json();
+  const ul = document.createElement("ul");
+
+  users.forEach((user) => {
+    const li = document.createElement("li");
+    li.innerText = user.name;
+    ul.append(li);
+    console.log(user.name);
+  });
+  document.getElementById("root").append(ul);
 };
 
-const users = await findAllUsers();
-console.log(users);
+findAllUsers();
+// console.log(users);
 console.log("Hello world");
