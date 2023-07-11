@@ -87,4 +87,25 @@ const invoiceById = (id) => {
   return invoices.find((i) => i.id === id);
 };
 
-export { chair, invoices, invoiceByClientName as default, invoiceById };
+const findInvoiceById = (id) => {
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const result = invoiceById(id);
+      if (result) {
+        resolve(result);
+      } else {
+        reject("Error: invoice not found!");
+      }
+    }, 2500);
+  });
+
+  return promise;
+};
+
+export {
+  chair,
+  invoices,
+  invoiceByClientName as default,
+  invoiceById,
+  findInvoiceById,
+};
