@@ -5,6 +5,10 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <HelloWorld user={{ name: "Pepe", lastName: "Doe" }} id="1" />
+    <HelloWorld
+      title="Hello World!"
+      user={{ name: "Pepe", lastName: "Doe" }}
+      id={1}
+    />
   </React.StrictMode>
 );

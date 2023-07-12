@@ -1,4 +1,6 @@
-export const HelloWorld = ({ user, id, title = "Hello World!" }) => {
+import PropTypes from "prop-types";
+
+export const HelloWorld = ({ user, id, title }) => {
   console.log(title);
   return (
     <>
@@ -8,4 +10,9 @@ export const HelloWorld = ({ user, id, title = "Hello World!" }) => {
       </div>
     </>
   );
+};
+HelloWorld.propTypes = {
+  title: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired,
 };
