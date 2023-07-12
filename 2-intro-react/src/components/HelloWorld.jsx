@@ -1,9 +1,10 @@
-export const HelloWorld = ({ user, id }) => {
+export const HelloWorld = ({ user, id, title = "Hello World!" }) => {
+  console.log(title);
   return (
     <>
-      <h1>Hello World</h1>
+      <h1>{title}</h1>
       <div>
-        Whats up {user}! Your id is {id}
+        Whats up {user.name} {user.lastName}! Your id is {id}
       </div>
     </>
   );
