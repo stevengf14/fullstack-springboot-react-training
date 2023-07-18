@@ -11,6 +11,6 @@ export const InvoiceView = ({ id, name }) => {
   );
 };
 InvoiceView.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
 };
