@@ -28,6 +28,35 @@ export const InvoiceApp = () => {
 
             <ListItemsView title="Invoice Products" items={items} />
             <TotalView total={total} />
+            <form>
+              <input
+                type="text"
+                name="product"
+                placeholder="Product"
+                className="form-control m-3"
+                onChange={(event) => {
+                  console.log(event.target.value);
+                }}
+              />
+              <input
+                type="text"
+                name="price"
+                placeholder="Price"
+                className="form-control m-3"
+                onChange={(event) => {
+                  console.log(event.target.value);
+                }}
+              />
+              <input
+                type="text"
+                name="quantity"
+                placeholder="Quantity"
+                className="form-control m-3"
+                onChange={(event) => {
+                  console.log(event.target.value);
+                }}
+              />
+            </form>
           </div>
         </div>
       </div>
