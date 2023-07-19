@@ -22,6 +22,8 @@ export const InvoiceApp = () => {
 
   const [items, setItems] = useState(initialItems);
 
+  const [counter, setCounter] = useState(4);
+
   return (
     <>
       <div className="container">
@@ -47,10 +49,16 @@ export const InvoiceApp = () => {
               className="w-50"
               onSubmit={(event) => {
                 event.preventDefault();
+
+                if (productValue.trim().length <= 1) return;
+                if (priceValue.trim().length < 1 || priceValue <= 0) return;
+                if (quantityValue.trim().length < 1 || quantityValue <= 0)
+                  return;
+
                 setItems([
                   ...items,
                   {
-                    id: 4,
+                    id: { counter },
                     product: productValue,
                     price: +priceValue,
                     quantity: parseInt(quantityValue, 10),
@@ -59,6 +67,7 @@ export const InvoiceApp = () => {
                 setProductValue("");
                 setPriceValue("");
                 setQuantityValue("");
+                setCounter(counter + 1);
               }}
             >
               <input
@@ -92,7 +101,7 @@ export const InvoiceApp = () => {
                 }}
               />
 
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary m-3">
                 Add Item
               </button>
             </form>
