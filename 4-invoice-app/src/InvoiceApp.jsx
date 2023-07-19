@@ -58,7 +58,7 @@ export const InvoiceApp = () => {
                 setItems([
                   ...items,
                   {
-                    id: { counter },
+                    id: counter,
                     product: productValue,
                     price: +priceValue,
                     quantity: parseInt(quantityValue, 10),
