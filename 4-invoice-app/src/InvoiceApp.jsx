@@ -50,17 +50,21 @@ export const InvoiceApp = () => {
                 setItems([
                   ...items,
                   {
-                    key: 4,
+                    id: 4,
                     product: productValue,
-                    price: priceValue,
-                    quantity: quantityValue,
+                    price: +priceValue,
+                    quantity: parseInt(quantityValue, 10),
                   },
                 ]);
+                setProductValue("");
+                setPriceValue("");
+                setQuantityValue("");
               }}
             >
               <input
                 type="text"
                 name="product"
+                value={productValue}
                 placeholder="Product"
                 className="form-control m-3"
                 onChange={(event) => {
@@ -70,6 +74,7 @@ export const InvoiceApp = () => {
               <input
                 type="text"
                 name="price"
+                value={priceValue}
                 placeholder="Price"
                 className="form-control m-3"
                 onChange={(event) => {
@@ -79,6 +84,7 @@ export const InvoiceApp = () => {
               <input
                 type="text"
                 name="quantity"
+                value={quantityValue}
                 placeholder="Quantity"
                 className="form-control m-3"
                 onChange={(event) => {
