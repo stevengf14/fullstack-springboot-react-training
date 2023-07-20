@@ -16,47 +16,46 @@ export const InvoiceApp = () => {
     total,
   } = getInvoice();
 
-  const [productValue, setProductValue] = useState("");
-  const [priceValue, setPriceValue] = useState("");
-  const [quantityValue, setQuantityValue] = useState("");
+  const [formItemsState, setFormItemsState] = useState({
+    product: "",
+    price: "",
+    quantity: "",
+  });
+
+  const { product, price, quantity } = formItemsState;
 
   const [items, setItems] = useState(initialItems);
 
   const [counter, setCounter] = useState(4);
 
-  const onProductChange = ({ target }) => {
-    setProductValue(target.value);
-  };
-
-  const onPriceChange = ({ target }) => {
-    setPriceValue(target.value);
-  };
-
-  const onQuantityChange = ({ target }) => {
-    setQuantityValue(target.value);
+  const onInputChange = ({ target: { name, value } }) => {
+    setFormItemsState({
+      ...formItemsState,
+      [name]: value,
+    });
   };
 
   const onInvoiceItemsSubmit = (event) => {
     event.preventDefault();
 
-    if (productValue.trim().length <= 1) {
+    if (product.trim().length <= 1) {
       alert("The product name need more than 1 character");
       return;
     }
-    if (priceValue.trim().length < 1 || priceValue <= 0) {
+    if (price.trim().length < 1 || price <= 0) {
       alert("The price value is not allowed");
       return;
     }
-    if (isNaN(priceValue.trim())) {
+    if (isNaN(price.trim())) {
       alert("The price value is not a number");
       return;
     }
-    if (quantityValue.trim().length < 1 || quantityValue <= 0) {
+    if (quantity.trim().length < 1 || quantity <= 0) {
       alert("The quantity value is not allowed");
       return;
     }
 
-    if (isNaN(quantityValue.trim())) {
+    if (isNaN(quantity.trim())) {
       alert("The quantity value is not a number");
       return;
     }
@@ -65,14 +64,16 @@ export const InvoiceApp = () => {
       ...items,
       {
         id: counter,
-        product: productValue.trim(),
-        price: +priceValue.trim(),
-        quantity: parseInt(quantityValue.trim(), 10),
+        product: product.trim(),
+        price: +price.trim(),
+        quantity: parseInt(quantity.trim(), 10),
       },
     ]);
-    setProductValue("");
-    setPriceValue("");
-    setQuantityValue("");
+    setFormItemsState({
+      product: "",
+      price: "",
+      quantity: "",
+    });
     setCounter(counter + 1);
   };
 
@@ -101,26 +102,26 @@ export const InvoiceApp = () => {
               <input
                 type="text"
                 name="product"
-                value={productValue}
+                value={product}
                 placeholder="Product"
                 className="form-control m-3"
-                onChange={onProductChange}
+                onChange={onInputChange}
               />
               <input
                 type="text"
                 name="price"
-                value={priceValue}
+                value={price}
                 placeholder="Price"
                 className="form-control m-3"
-                onChange={onPriceChange}
+                onChange={onInputChange}
               />
               <input
                 type="text"
                 name="quantity"
-                value={quantityValue}
+                value={quantity}
                 placeholder="Quantity"
                 className="form-control m-3"
-                onChange={onQuantityChange}
+                onChange={onInputChange}
               />
 
               <button type="submit" className="btn btn-primary m-3">
