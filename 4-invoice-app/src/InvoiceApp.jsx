@@ -50,18 +50,35 @@ export const InvoiceApp = () => {
               onSubmit={(event) => {
                 event.preventDefault();
 
-                if (productValue.trim().length <= 1) return;
-                if (priceValue.trim().length < 1 || priceValue <= 0) return;
-                if (quantityValue.trim().length < 1 || quantityValue <= 0)
+                if (productValue.trim().length <= 1) {
+                  alert("The product name need more than 1 character");
                   return;
+                }
+                if (priceValue.trim().length < 1 || priceValue <= 0) {
+                  alert("The price value is not allowed");
+                  return;
+                }
+                if (isNaN(priceValue.trim())) {
+                  alert("The price value is not a number");
+                  return;
+                }
+                if (quantityValue.trim().length < 1 || quantityValue <= 0) {
+                  alert("The quantity value is not allowed");
+                  return;
+                }
+
+                if (isNaN(quantityValue.trim())) {
+                  alert("The quantity value is not a number");
+                  return;
+                }
 
                 setItems([
                   ...items,
                   {
                     id: counter,
-                    product: productValue,
-                    price: +priceValue,
-                    quantity: parseInt(quantityValue, 10),
+                    product: productValue.trim(),
+                    price: +priceValue.trim(),
+                    quantity: parseInt(quantityValue.trim(), 10),
                   },
                 ]);
                 setProductValue("");
