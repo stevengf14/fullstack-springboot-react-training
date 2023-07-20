@@ -27,17 +27,13 @@ const invoiceInitial = {
 };
 
 export const InvoiceApp = () => {
+  const [counter, setCounter] = useState(4);
+
   const [invoice, setInvoice] = useState(invoiceInitial);
 
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    const data = getInvoice();
-    setInvoice(data);
-    setItems(data.items);
-  }, []);
-
   const { id, name, client, company, total } = invoice;
+
+  const [items, setItems] = useState([]);
 
   const [formItemsState, setFormItemsState] = useState({
     product: "",
@@ -47,7 +43,11 @@ export const InvoiceApp = () => {
 
   const { product, price, quantity } = formItemsState;
 
-  const [counter, setCounter] = useState(4);
+  useEffect(() => {
+    const data = getInvoice();
+    setInvoice(data);
+    setItems(data.items);
+  }, []);
 
   const onInputChange = ({ target: { name, value } }) => {
     setFormItemsState({
