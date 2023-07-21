@@ -1,4 +1,4 @@
-import { getInvoice } from "./services/invoiceServices";
+import { calculateTotal, getInvoice } from "./services/invoiceServices";
 import { ClientView } from "./components/ClientView";
 import { CompanyView } from "./components/CompanyView";
 import { InvoiceView } from "./components/InvoiceView";
@@ -27,11 +27,13 @@ const invoiceInitial = {
 };
 
 export const InvoiceApp = () => {
+  const [total, setTotal] = useState(0);
+
   const [counter, setCounter] = useState(4);
 
   const [invoice, setInvoice] = useState(invoiceInitial);
 
-  const { id, name, client, company, total } = invoice;
+  const { id, name, client, company } = invoice;
 
   const [items, setItems] = useState([]);
 
@@ -48,6 +50,10 @@ export const InvoiceApp = () => {
     setInvoice(data);
     setItems(data.items);
   }, []);
+
+  useEffect(() => {
+    setTotal(calculateTotal(items));
+  }, [items]);
 
   const onInputChange = ({ target: { name, value } }) => {
     setFormItemsState({
