@@ -12,7 +12,7 @@ export const CartApp = () => {
                   Mechanical keyboard with RGB lights switches cherry network
                 </p>
                 <p className="card-text">$ 120</p>
-                <buttonc className="btn btn-primary">Add</buttonc>
+                <button className="btn btn-primary">Add</button>
               </div>
             </div>
           </div>
@@ -24,7 +24,7 @@ export const CartApp = () => {
                   Mechanical keyboard with RGB lights switches cherry network
                 </p>
                 <p className="card-text">$ 1200</p>
-                <buttonc className="btn btn-primary">Add</buttonc>
+                <button className="btn btn-primary">Add</button>
               </div>
             </div>
           </div>
@@ -36,7 +36,7 @@ export const CartApp = () => {
                   Mechanical keyboard with RGB lights switches cherry network
                 </p>
                 <p className="card-text">$ 300</p>
-                <buttonc className="btn btn-primary">Add</buttonc>
+                <button className="btn btn-primary">Add</button>
               </div>
             </div>
           </div>
@@ -48,7 +48,7 @@ export const CartApp = () => {
                   Mechanical keyboard with RGB lights switches cherry network
                 </p>
                 <p className="card-text">$ 750</p>
-                <buttonc className="btn btn-primary">Add</buttonc>
+                <button className="btn btn-primary">Add</button>
               </div>
             </div>
           </div>
@@ -60,7 +60,7 @@ export const CartApp = () => {
                   Mechanical keyboard with RGB lights switches cherry network
                 </p>
                 <p className="card-text">$ 600</p>
-                <buttonc className="btn btn-primary">Add</buttonc>
+                <button className="btn btn-primary">Add</button>
               </div>
             </div>
           </div>
@@ -72,10 +72,43 @@ export const CartApp = () => {
                   Mechanical keyboard with RGB lights switches cherry network
                 </p>
                 <p className="card-text">$ 240</p>
-                <buttonc className="btn btn-primary">Add</buttonc>
+                <button className="btn btn-primary">Add</button>
               </div>
             </div>
           </div>
+        </div>
+        <div className="my-4 w-50">
+          <h3>Shopping Cart</h3>
+          <table className="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>name</td>
+                <td>price</td>
+                <td>quantity</td>
+                <td>total</td>
+                <td>delete</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colSpan={3} className="text-end fw-bold">
+                  Total
+                </td>
+                <td colSpan={2} className="text-end fw-bold">
+                  12345
+                </td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
       </div>
     </>
