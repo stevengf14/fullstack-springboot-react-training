@@ -1,81 +1,30 @@
+import { useEffect, useState } from "react";
+import { getProducts } from "./services/productService";
+
 export const CartApp = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    setProducts(getProducts());
+  }, []);
+
   return (
     <>
       <div className="container">
         <h3>Cart App</h3>
         <div className="row">
-          <div className="col-4 my-2">
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">Mechanical Keyboard RGB</h5>
-                <p className="card-text">
-                  Mechanical keyboard with RGB lights switches cherry network
-                </p>
-                <p className="card-text">$ 120</p>
-                <button className="btn btn-primary">Add</button>
+          {products.map((product) => (
+            <div className="col-4 my-2" key={product.id}>
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title">{product.name}</h5>
+                  <p className="card-text">{product.description}</p>
+                  <p className="card-text">${product.price}</p>
+                  <button className="btn btn-primary">Add</button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="col-4 my-2">
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">Samsung Smart TV 55</h5>
-                <p className="card-text">
-                  Mechanical keyboard with RGB lights switches cherry network
-                </p>
-                <p className="card-text">$ 1200</p>
-                <button className="btn btn-primary">Add</button>
-              </div>
-            </div>
-          </div>
-          <div className="col-4 my-2">
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">Corsair Memmory 8GB DDR5</h5>
-                <p className="card-text">
-                  Mechanical keyboard with RGB lights switches cherry network
-                </p>
-                <p className="card-text">$ 300</p>
-                <button className="btn btn-primary">Add</button>
-              </div>
-            </div>
-          </div>
-          <div className="col-4 my-2">
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">Asus Nvidia RTC</h5>
-                <p className="card-text">
-                  Mechanical keyboard with RGB lights switches cherry network
-                </p>
-                <p className="card-text">$ 750</p>
-                <button className="btn btn-primary">Add</button>
-              </div>
-            </div>
-          </div>
-          <div className="col-4 my-2">
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">CPU Intel Core i5</h5>
-                <p className="card-text">
-                  Mechanical keyboard with RGB lights switches cherry network
-                </p>
-                <p className="card-text">$ 600</p>
-                <button className="btn btn-primary">Add</button>
-              </div>
-            </div>
-          </div>
-          <div className="col-4 my-2">
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">Headphones bluetooth Sony</h5>
-                <p className="card-text">
-                  Mechanical keyboard with RGB lights switches cherry network
-                </p>
-                <p className="card-text">$ 240</p>
-                <button className="btn btn-primary">Add</button>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
         <div className="my-4 w-50">
           <h3>Shopping Cart</h3>
