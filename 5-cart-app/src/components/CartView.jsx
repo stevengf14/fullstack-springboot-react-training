@@ -1,6 +1,14 @@
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import { calculateTotal } from "../services/productService";
 
 export const CartView = ({ items, handlerDelete }) => {
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    setTotal(calculateTotal(items));
+  }, [items]);
+
   const onDeleteProduct = (id) => {
     handlerDelete(id);
   };
@@ -41,7 +49,7 @@ export const CartView = ({ items, handlerDelete }) => {
               Total
             </td>
             <td colSpan={2} className="text-end fw-bold">
-              12345
+              {total}
             </td>
           </tr>
         </tfoot>
