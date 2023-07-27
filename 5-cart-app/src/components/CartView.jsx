@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
 
-export const CartView = ({ items }) => {
+export const CartView = ({ items, handlerDelete }) => {
+  const onDeleteProduct = (id) => {
+    handlerDelete(id);
+  };
   return (
     <>
       <h3>Shopping Cart</h3>
@@ -21,7 +24,14 @@ export const CartView = ({ items }) => {
               <td>{item.product.price}</td>
               <td>{item.quantity}</td>
               <td>{item.quantity * item.product.price}</td>
-              <td>delete</td>
+              <td>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => onDeleteProduct(item.product.id)}
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -41,4 +51,5 @@ export const CartView = ({ items }) => {
 };
 CartView.propTypes = {
   items: PropTypes.array.isRequired,
+  handlerDelete: PropTypes.func.isRequired,
 };
