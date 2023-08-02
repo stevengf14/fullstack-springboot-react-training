@@ -1,43 +1,33 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import { CartView } from "./components/CartView";
 import { CatalogView } from "./components/CatalogView";
+import { itemsReducer } from "./reducer/itemsReducer";
 
 const initCartItems = JSON.parse(sessionStorage.getItem("cart")) || [];
 
 export const CartApp = () => {
-  const [cartItems, setCartItems] = useState(initCartItems);
+  const [cartItems, dispatch] = useReducer(itemsReducer, initCartItems);
 
   const handlerAddProductCart = (product) => {
     const hasItem = cartItems.find((item) => item.product.id === product.id);
     if (hasItem) {
-      // setCartItems([
-      //   ...cartItems.filter((item) => item.product.id !== product.id),
-      //   {
-      //     product,
-      //     quantity: hasItem.quantity + 1,
-      //   },
-      // ]);
-      setCartItems(
-        cartItems.map((item) => {
-          if (item.product.id === product.id) {
-            item.quantity = item.quantity + 1;
-          }
-          return item;
-        })
-      );
+      dispatch({
+        type: "UpdateQuantityProductCart",
+        payload: product,
+      });
     } else {
-      setCartItems([
-        ...cartItems,
-        {
-          product,
-          quantity: 1,
-        },
-      ]);
+      dispatch({
+        type: "AddProductCart",
+        payload: product,
+      });
     }
   };
 
   const handlerDeleteProductCart = (id) => {
-    setCartItems([...cartItems.filter((item) => item.product.id !== id)]);
+    dispatch({
+      type: "DeleteProductCart",
+      payload: id,
+    });
   };
 
   return (
