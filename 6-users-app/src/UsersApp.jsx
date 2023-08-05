@@ -22,6 +22,20 @@ export const UsersApp = () => {
     });
   };
 
+  const handlerUpdateUser = (user) => {
+    dispatch({
+      type: "UPDATE_USER",
+      payload: user,
+    });
+  };
+
+  const handlerRemoveUser = (id) => {
+    dispatch({
+      type: "REMOVE_USER",
+      payload: id,
+    });
+  };
+
   return (
     <div className="container my-4">
       <h2>Users App</h2>
@@ -30,7 +44,11 @@ export const UsersApp = () => {
           <UserForm handlerAddUser={handlerAddUser} />
         </div>
         <div className="col">
-          <UsersList users={users} />
+          <UsersList
+            users={users}
+            handlerUpdateUser={handlerUpdateUser}
+            handlerRemoveUser={handlerRemoveUser}
+          />
         </div>
       </div>
     </div>
