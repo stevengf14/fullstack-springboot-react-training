@@ -33,7 +33,7 @@ export const UserRow = ({
         <button
           type="button"
           className="btn btn-danger btn-sm"
-          onClick={onRemoveUser}
+          onClick={()=>onRemoveUser(id)}
         >
           remove
         </button>
