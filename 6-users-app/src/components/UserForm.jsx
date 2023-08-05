@@ -18,8 +18,16 @@ export const UserForm = () => {
     });
   };
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log(userForm);
+
+    //save userForm in the users list
+    setUserForm(initialUserForm)
+  };
+
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <input
         className="form-control my-3 w-75"
         placeholder="Username"
