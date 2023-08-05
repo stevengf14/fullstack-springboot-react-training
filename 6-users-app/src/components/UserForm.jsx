@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 
 const initialUserForm = {
@@ -5,7 +6,7 @@ const initialUserForm = {
   password: "",
   email: "",
 };
-export const UserForm = () => {
+export const UserForm = ({ handlerAddUser }) => {
   const [userForm, setUserForm] = useState(initialUserForm);
 
   const { username, password, email } = userForm;
@@ -20,10 +21,14 @@ export const UserForm = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(userForm);
+    if (!username || !password || !email) {
+      alert("You have to complete all the fields");
+      return;
+    }
 
     //save userForm in the users list
-    setUserForm(initialUserForm)
+    handlerAddUser(userForm);
+    setUserForm(initialUserForm);
   };
 
   return (
@@ -55,4 +60,8 @@ export const UserForm = () => {
       </button>
     </form>
   );
+};
+
+UserForm.propTypes = {
+  handlerAddUser: PropTypes.func.isRequired,
 };
