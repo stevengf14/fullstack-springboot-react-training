@@ -1,7 +1,11 @@
 import PropTypes from "prop-types";
-import { UserRow } from "../../../5-cart-app/src/components/UserRow";
+import { UserRow } from "./UserRow";
 
-export const UsersList = ({ users, handlerUpdateUser, handlerRemoveUser }) => {
+export const UsersList = ({
+  users,
+  handlerRemoveUser,
+  handlerUserSelectedForm,
+}) => {
   return (
     <>
       <table className="table table-hover table-striped">
@@ -15,14 +19,15 @@ export const UsersList = ({ users, handlerUpdateUser, handlerRemoveUser }) => {
           </tr>
         </thead>
         <tbody>
-          {users.map(({ id, username, email }) => (
+          {users.map(({ id, username, email, password }) => (
             <UserRow
               key={id}
               id={id}
               username={username}
               email={email}
-              handlerUpdateUser={handlerUpdateUser}
+              password={password}
               handlerRemoveUser={handlerRemoveUser}
+              handlerUserSelectedForm={handlerUserSelectedForm}
             />
           ))}
         </tbody>
@@ -32,6 +37,6 @@ export const UsersList = ({ users, handlerUpdateUser, handlerRemoveUser }) => {
 };
 UsersList.propTypes = {
   users: PropTypes.array.isRequired,
-  handlerUpdateUser: PropTypes.func.isRequired,
   handlerRemoveUser: PropTypes.func.isRequired,
+  handlerUserSelectedForm: PropTypes.func.isRequired,
 };

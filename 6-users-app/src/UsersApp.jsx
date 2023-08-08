@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { UserForm } from "./components/UserForm";
 import { UsersList } from "./components/UsersList";
 import { usersReducer } from "./reducers/usersReducer";
@@ -20,17 +20,11 @@ const initialUserForm = {
 
 export const UsersApp = () => {
   const [users, dispatch] = useReducer(usersReducer, initialUsers);
+  const [userSelected, setUserSelected] = useState(initialUserForm);
 
   const handlerAddUser = (user) => {
     dispatch({
       type: "ADD_USER",
-      payload: user,
-    });
-  };
-
-  const handlerUpdateUser = (user) => {
-    dispatch({
-      type: "UPDATE_USER",
       payload: user,
     });
   };
@@ -42,6 +36,10 @@ export const UsersApp = () => {
     });
   };
 
+  const handlerUserSelectedForm = (user) => {
+    setUserSelected({ ...user });
+  };
+
   return (
     <div className="container my-4">
       <h2>Users App</h2>
@@ -49,6 +47,7 @@ export const UsersApp = () => {
         <div className="col">
           <UserForm
             handlerAddUser={handlerAddUser}
+            userSelected={userSelected}
             initialUserForm={initialUserForm}
           />
         </div>
@@ -60,8 +59,8 @@ export const UsersApp = () => {
           ) : (
             <UsersList
               users={users}
-              handlerUpdateUser={handlerUpdateUser}
               handlerRemoveUser={handlerRemoveUser}
+              handlerUserSelectedForm={handlerUserSelectedForm}
             />
           )}
         </div>
