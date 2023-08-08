@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 export const UserForm = ({ handlerAddUser, userSelected, initialUserForm }) => {
   const [userForm, setUserForm] = useState(initialUserForm);
 
-  const { username, password, email } = userForm;
+  const { id, username, password, email } = userForm;
 
   useEffect(() => {
     setUserForm({ ...userSelected });
@@ -54,8 +54,9 @@ export const UserForm = ({ handlerAddUser, userSelected, initialUserForm }) => {
         value={email}
         onChange={onInputChange}
       />
+      <input type="hidden" name="id" value={id} />
       <button className="btn btn-primary" type="submit">
-        Create
+        {id > 0 ? "Edit" : "Create"}
       </button>
     </form>
   );

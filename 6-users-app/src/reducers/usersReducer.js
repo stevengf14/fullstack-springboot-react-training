@@ -9,13 +9,12 @@ export const usersReducer = (state = [], action) => {
         },
       ];
     case "UPDATE_USER":
-      return [
-        ...state,
-        {
-          ...action.payload,
-          id: new Date().getTime(),
-        },
-      ];
+      return state.map((user) => {
+        if (user.id === action.payload.id) {
+          return { ...action.payload };
+        }
+        return user;
+      });
     case "REMOVE_USER":
       return [...state.filter((user) => user.id !== action.payload)];
 
