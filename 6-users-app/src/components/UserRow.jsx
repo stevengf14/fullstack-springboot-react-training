@@ -4,7 +4,6 @@ export const UserRow = ({
   id,
   username,
   email,
-  password,
   handlerRemoveUser,
   handlerUserSelectedForm,
 }) => {
@@ -22,7 +21,6 @@ export const UserRow = ({
               id,
               username,
               email,
-              password,
             })
           }
         >
@@ -45,7 +43,6 @@ UserRow.propTypes = {
   id: PropTypes.number.isRequired,
   username: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
   handlerRemoveUser: PropTypes.func.isRequired,
   handlerUserSelectedForm: PropTypes.func.isRequired,
 };
