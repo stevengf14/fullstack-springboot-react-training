@@ -7,6 +7,7 @@ export const UsersApp = () => {
     users,
     userSelected,
     initialUserForm,
+    visibleForm,
     handlerAddUser,
     handlerRemoveUser,
     handlerUserSelectedForm,
@@ -24,6 +25,7 @@ export const UsersApp = () => {
           />
         </div>
         <div className="col">
+          <button className="btn btn-primary my-2">New User</button>
           {users.length === 0 ? (
             <div className="alert alert-warning">
               There is no users in the system!
