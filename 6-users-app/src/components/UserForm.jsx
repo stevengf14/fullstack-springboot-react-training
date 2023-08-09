@@ -2,7 +2,12 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-export const UserForm = ({ handlerAddUser, userSelected, initialUserForm }) => {
+export const UserForm = ({
+  handlerAddUser,
+  userSelected,
+  initialUserForm,
+  handlerCloseForm,
+}) => {
   const [userForm, setUserForm] = useState(initialUserForm);
 
   const { id, username, password, email } = userForm;
@@ -32,6 +37,11 @@ export const UserForm = ({ handlerAddUser, userSelected, initialUserForm }) => {
 
     //save userForm in the users list
     handlerAddUser(userForm);
+    setUserForm(initialUserForm);
+  };
+
+  const onCloseForm = () => {
+    handlerCloseForm();
     setUserForm(initialUserForm);
   };
 
@@ -66,7 +76,11 @@ export const UserForm = ({ handlerAddUser, userSelected, initialUserForm }) => {
       <button className="btn btn-primary" type="submit">
         {id > 0 ? "Edit" : "Create"}
       </button>
-      <button className="btn btn-primary mx-2" type="button">
+      <button
+        className="btn btn-primary mx-2"
+        type="button"
+        onClick={onCloseForm}
+      >
         Close
       </button>
     </form>
@@ -77,4 +91,5 @@ UserForm.propTypes = {
   handlerAddUser: PropTypes.func.isRequired,
   userSelected: PropTypes.object.isRequired,
   initialUserForm: PropTypes.object.isRequired,
+  handlerCloseForm: PropTypes.func.isRequired,
 };
