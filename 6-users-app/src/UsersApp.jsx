@@ -1,4 +1,4 @@
-import { UserForm } from "./components/UserForm";
+import { UserModalForm } from "./components/UserModalForm";
 import { UsersList } from "./components/UsersList";
 import { useUsers } from "./hooks/useUsers";
 
@@ -18,27 +18,12 @@ export const UsersApp = () => {
   return (
     <>
       {visibleForm && (
-        <div className="open-modal-s animation fadeIn">
-          <div className="modal" style={{ display: "block" }} tabIndex="-1">
-            <div className="modal-dialog" role="document">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title">
-                    {userSelected.id > 0 ? "Edit" : "Create"} Modal Users
-                  </h5>
-                </div>
-                <div className="modal-body">
-                  <UserForm
-                    handlerAddUser={handlerAddUser}
-                    userSelected={userSelected}
-                    initialUserForm={initialUserForm}
-                    handlerCloseForm={handlerCloseForm}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <UserModalForm
+          userSelected={userSelected}
+          initialUserForm={initialUserForm}
+          handlerAddUser={handlerAddUser}
+          handlerCloseForm={handlerCloseForm}
+        />
       )}
       <div className="container my-4">
         <h2>Users App</h2>
