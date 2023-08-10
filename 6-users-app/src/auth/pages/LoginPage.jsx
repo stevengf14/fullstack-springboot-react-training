@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
@@ -6,7 +7,7 @@ const initialLoginForm = {
   password: "",
 };
 
-export const LoginPage = () => {
+export const LoginPage = ({ handleLogin }) => {
   const [loginForm, setLoginForm] = useState(initialLoginForm);
   const { username, password } = loginForm;
 
@@ -22,15 +23,7 @@ export const LoginPage = () => {
     }
 
     // login implementation
-    if (username === "admin" && password === "12345") {
-      //handleLogin();
-    } else {
-      Swal.fire(
-        "Validation Error",
-        "Username or password are not valid",
-        "error"
-      );
-    }
+    handleLogin({ username, password });
     setLoginForm(initialLoginForm);
   };
 
@@ -69,4 +62,7 @@ export const LoginPage = () => {
       </div>
     </div>
   );
+};
+LoginPage.propTypes = {
+  handleLogin: PropTypes.func.isRequired,
 };
