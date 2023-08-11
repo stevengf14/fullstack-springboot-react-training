@@ -3,6 +3,7 @@ import { LoginPage } from "./auth/pages/LoginPage";
 import { UsersPage } from "./pages/UsersPage";
 import { loginReducer } from "./auth/reducers/loginReducer";
 import Swal from "sweetalert2";
+import { Navbar } from "./components/layout/Navbar";
 
 const initialLogin = JSON.parse(sessionStorage.getItem("LOGIN")) || {
   isAuth: false,
@@ -12,7 +13,7 @@ export const UsersApp = () => {
   const [login, dispatch] = useReducer(loginReducer, initialLogin);
   const handleLogin = ({ username, password }) => {
     if (username === "admin" && password === "12345") {
-      const user = { username: "auth" };
+      const user = { username: "admin" };
       dispatch({
         type: "LOGIN",
         payload: user,
@@ -32,9 +33,23 @@ export const UsersApp = () => {
       );
     }
   };
+
+  const handlerLogout = () => {
+    dispatch({
+      type: "LOGOUT",
+    });
+    sessionStorage.removeItem("LOGIN");
+  };
+
   return (
     <>
-      {login.isAuth ? <UsersPage /> : <LoginPage handleLogin={handleLogin} />}
+      {login.isAuth ? (
+        <>
+          <Navbar login={login} handlerLogout={handlerLogout} /> <UsersPage />
+        </>
+      ) : (
+        <LoginPage handleLogin={handleLogin} />
+      )}
     </>
   );
 };
