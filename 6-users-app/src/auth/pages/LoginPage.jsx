@@ -22,7 +22,6 @@ export const LoginPage = ({ handleLogin }) => {
       Swal.fire("Validation Error", "Username and password required", "error");
     }
 
-    // login implementation
     handleLogin({ username, password });
     setLoginForm(initialLoginForm);
   };
