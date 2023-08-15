@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
 
 export const Navbar = ({ login, handlerLogout }) => {
   return (
@@ -18,9 +19,19 @@ export const Navbar = ({ login, handlerLogout }) => {
         >
           <span className="navbar-toggler-icon "></span>
         </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/users">
+                Users
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+
         <div
           className="collapse navbar-collapse justify-content-end"
-          id="navbarNav"
+          id="navbarNavLogout"
         >
           <span className="nav-item nav-link text-primary mx-3">
             {login.user?.username}
