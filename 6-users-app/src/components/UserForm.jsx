@@ -76,13 +76,16 @@ export const UserForm = ({
       <button className="btn btn-primary" type="submit">
         {id > 0 ? "Edit" : "Create"}
       </button>
-      <button
-        className="btn btn-primary mx-2"
-        type="button"
-        onClick={onCloseForm}
-      >
-        Close
-      </button>
+
+      {handlerCloseForm && (
+        <button
+          className="btn btn-primary mx-2"
+          type="button"
+          onClick={onCloseForm}
+        >
+          Close
+        </button>
+      )}
     </form>
   );
 };
