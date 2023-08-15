@@ -94,5 +94,5 @@ UserForm.propTypes = {
   handlerAddUser: PropTypes.func.isRequired,
   userSelected: PropTypes.object.isRequired,
   initialUserForm: PropTypes.object.isRequired,
-  handlerCloseForm: PropTypes.func.isRequired,
+  handlerCloseForm: PropTypes.func,
 };
