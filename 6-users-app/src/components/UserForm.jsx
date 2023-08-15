@@ -35,6 +35,15 @@ export const UserForm = ({
       return;
     }
 
+    if (!email.includes("@")) {
+      Swal.fire(
+        "Email validaton Error",
+        "Your email is not valid. It must have '@'",
+        "error"
+      );
+      return;
+    }
+
     //save userForm in the users list
     handlerAddUser(userForm);
     setUserForm(initialUserForm);

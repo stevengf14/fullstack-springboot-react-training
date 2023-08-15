@@ -11,8 +11,10 @@ export const RegistrationPage = ({
   const [userSelected, setUserSelected] = useState(initialUserForm);
   const { id } = useParams();
   useEffect(() => {
-    const user = users.find((user) => user.id == id) || initialUserForm;
-    setUserSelected(user);
+    if (id) {
+      const user = users.find((user) => user.id == id) || initialUserForm;
+      setUserSelected(user);
+    }
   }, [id, initialUserForm, users]);
   return (
     <div className="container my-4">
