@@ -1,0 +1,38 @@
+import PropTypes from "prop-types";
+import { useUsers } from "../hooks/useUsers";
+import { UserContext } from "./UserContext";
+
+export const UserProvider = ({ children }) => {
+  const {
+    users,
+    userSelected,
+    initialUserForm,
+    visibleForm,
+    handlerAddUser,
+    handlerRemoveUser,
+    handlerUserSelectedForm,
+    handlerOpenForm,
+    handlerCloseForm,
+  } = useUsers();
+
+  return (
+    <UserContext.Provider
+      value={{
+        users,
+        userSelected,
+        initialUserForm,
+        visibleForm,
+        handlerAddUser,
+        handlerRemoveUser,
+        handlerUserSelectedForm,
+        handlerOpenForm,
+        handlerCloseForm,
+      }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
+};
+UserProvider.propTypes = {
+  children: PropTypes.object.isRequired,
+};
