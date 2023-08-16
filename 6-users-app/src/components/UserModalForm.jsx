@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { UserForm } from "./UserForm";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
@@ -27,8 +26,4 @@ export const UserModalForm = () => {
       </div>
     </div>
   );
-};
-UserModalForm.propTypes = {
-  userSelected: PropTypes.object.isRequired,
-  handlerCloseForm: PropTypes.func.isRequired,
 };
