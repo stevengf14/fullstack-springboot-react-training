@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
 import { UserForm } from "./UserForm";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
-export const UserModalForm = ({
-  userSelected,
-  initialUserForm,
-  handlerAddUser,
-  handlerCloseForm,
-}) => {
+export const UserModalForm = () => {
+  const { userSelected, handlerCloseForm } = useContext(UserContext);
+
   return (
     <div className="open-modal animation fadeIn">
       <div className="modal" style={{ display: "block" }} tabIndex="-1">
@@ -19,9 +18,7 @@ export const UserModalForm = ({
             </div>
             <div className="modal-body">
               <UserForm
-                handlerAddUser={handlerAddUser}
                 userSelected={userSelected}
-                initialUserForm={initialUserForm}
                 handlerCloseForm={handlerCloseForm}
               />
             </div>
@@ -33,7 +30,5 @@ export const UserModalForm = ({
 };
 UserModalForm.propTypes = {
   userSelected: PropTypes.object.isRequired,
-  initialUserForm: PropTypes.object.isRequired,
-  handlerAddUser: PropTypes.func.isRequired,
   handlerCloseForm: PropTypes.func.isRequired,
 };
