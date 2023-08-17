@@ -10,7 +10,7 @@ export const UsersApp = () => {
   return (
     <Routes>
       {login.isAuth ? (
-        <Route path="/*" element={<UserRoutes login={login} />} />
+        <Route path="/*" element={<UserRoutes />} />
       ) : (
         <>
           <Route path="/login" element={<LoginPage />} />

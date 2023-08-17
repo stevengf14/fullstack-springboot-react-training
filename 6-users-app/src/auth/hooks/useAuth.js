@@ -13,7 +13,7 @@ export const useAuth = () => {
   const [login, dispatch] = useReducer(loginReducer, initialLogin);
   const navigate = useNavigate();
 
-  const handleLogin = ({ username, password }) => {
+  const handlerLogin = ({ username, password }) => {
     const isLogin = loginUser({ username, password });
     if (isLogin) {
       const user = { username: "admin" };
@@ -45,5 +45,5 @@ export const useAuth = () => {
     sessionStorage.removeItem("LOGIN");
   };
 
-  return { login, handleLogin, handlerLogout };
+  return { login, handlerLogin, handlerLogout };
 };
