@@ -1,5 +1,9 @@
 package ec.com.learning.backend.cartapp.repositories;
 
-public interface ProductRepository {
+import org.springframework.data.repository.CrudRepository;
 
+import ec.com.learning.backend.cartapp.models.entities.Product;
+
+public interface ProductRepository extends CrudRepository<Product, Long>{
+	
 }
