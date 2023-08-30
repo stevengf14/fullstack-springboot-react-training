@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +34,20 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public User save(User user) {
 		return repository.save(user);
+	}
+
+	@Override
+	public Optional<User> update(User user, Long id) {
+		Optional<User> optional = this.findById(id);
+		User userOptional = null;
+		if (optional.isPresent()) {
+			User userDb = optional.orElseThrow();
+			userDb.setUsername(user.getUsername());
+			userDb.setEmail(user.getEmail());
+			// return Optional.of(this.save(userDb));
+			userOptional = this.save(userDb);
+		}
+		return Optional.ofNullable(userOptional);
 	}
 
 	@Override

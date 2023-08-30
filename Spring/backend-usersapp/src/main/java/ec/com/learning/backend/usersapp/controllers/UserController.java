@@ -51,14 +51,21 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(user));
 	}
 
+	/*
+	 * @PutMapping("/{id}") public ResponseEntity<?> update(@RequestBody User
+	 * user, @PathVariable Long id) { Optional<User> optional =
+	 * service.findById(id); if (optional.isPresent()) { User userDb =
+	 * optional.orElseThrow(); userDb.setUsername(user.getUsername());
+	 * userDb.setEmail(user.getEmail()); return
+	 * ResponseEntity.status(HttpStatus.CREATED).body(service.save(userDb)); }
+	 * return ResponseEntity.notFound().build(); }
+	 */
+
 	@PutMapping("/{id}")
 	public ResponseEntity<?> update(@RequestBody User user, @PathVariable Long id) {
 		Optional<User> optional = service.findById(id);
 		if (optional.isPresent()) {
-			User userDb = optional.orElseThrow();
-			userDb.setUsername(user.getUsername());
-			userDb.setEmail(user.getEmail());
-			return ResponseEntity.status(HttpStatus.CREATED).body(service.save(userDb));
+			return ResponseEntity.status(HttpStatus.CREATED).body(optional.orElseThrow());
 		}
 		return ResponseEntity.notFound().build();
 	}
