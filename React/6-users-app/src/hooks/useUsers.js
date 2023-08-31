@@ -2,15 +2,9 @@ import { useReducer, useState } from "react";
 import { usersReducer } from "../reducers/usersReducer";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { findAll } from "../services/userService";
 
-const initialUsers = [
-  {
-    id: 1,
-    username: "pepe",
-    password: "1234",
-    email: "pepe@correo.com",
-  },
-];
+const initialUsers = [];
 
 const initialUserForm = {
   id: 0,
@@ -24,6 +18,14 @@ export const useUsers = () => {
   const [userSelected, setUserSelected] = useState(initialUserForm);
   const [visibleForm, setVisibleForm] = useState(false);
   const navigate = useNavigate();
+
+  const getUsers = async () => {
+    const result = await findAll();
+    dispatch({
+      type: "LOAD_USERS",
+      payload: result.data,
+    });
+  };
 
   const handlerAddUser = (user) => {
     const type = user.id === 0 ? "ADD_USER" : "UPDATE_USER";
@@ -85,5 +87,6 @@ export const useUsers = () => {
     handlerUserSelectedForm,
     handlerOpenForm,
     handlerCloseForm,
+    getUsers,
   };
 };
