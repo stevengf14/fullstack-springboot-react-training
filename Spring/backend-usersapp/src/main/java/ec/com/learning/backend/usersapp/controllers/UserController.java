@@ -63,7 +63,7 @@ public class UserController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> update(@RequestBody User user, @PathVariable Long id) {
-		Optional<User> optional = service.findById(id);
+		Optional<User> optional = service.update(user, id);
 		if (optional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(optional.orElseThrow());
 		}
