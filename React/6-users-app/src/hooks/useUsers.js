@@ -2,7 +2,7 @@ import { useReducer, useState } from "react";
 import { usersReducer } from "../reducers/usersReducer";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { findAll } from "../services/userService";
+import { findAll, remove, save, update } from "../services/userService";
 
 const initialUsers = [];
 
@@ -27,11 +27,19 @@ export const useUsers = () => {
     });
   };
 
-  const handlerAddUser = (user) => {
+  const handlerAddUser = async (user) => {
     const type = user.id === 0 ? "ADD_USER" : "UPDATE_USER";
+
+    let response;
+    if (type === "ADD_USER") {
+      response = await save(user);
+    } else {
+      response = await update(user);
+    }
+
     dispatch({
       type,
-      payload: user,
+      payload: response.data,
     });
 
     Swal.fire(
@@ -54,6 +62,7 @@ export const useUsers = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
+        remove(id);
         dispatch({
           type: "REMOVE_USER",
           payload: id,
