@@ -1,11 +1,14 @@
 package ec.com.learning.backend.usersapp.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ec.com.learning.backend.usersapp.models.entities.User;
 import ec.com.learning.backend.usersapp.services.UserService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
@@ -49,7 +53,10 @@ public class UserController {
 	 */
 
 	@PostMapping
-	public ResponseEntity<?> create(@RequestBody User user) {
+	public ResponseEntity<?> create(@Valid @RequestBody User user, BindingResult result) {
+		if (result.hasErrors()) {
+			return validation(result);
+		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(user));
 	}
 
@@ -64,7 +71,10 @@ public class UserController {
 	 */
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@RequestBody User user, @PathVariable Long id) {
+	public ResponseEntity<?> update(@Valid @RequestBody User user, BindingResult result, @PathVariable Long id) {
+		if (result.hasErrors()) {
+			return validation(result);
+		}
 		Optional<User> optional = service.update(user, id);
 		if (optional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(optional.orElseThrow());
@@ -80,6 +90,14 @@ public class UserController {
 			return ResponseEntity.noContent().build(); // 204
 		}
 		return ResponseEntity.notFound().build();
+	}
+
+	private ResponseEntity<?> validation(BindingResult result) {
+		Map<String, String> errors = new HashMap<>();
+		result.getFieldErrors().forEach(error -> {
+			errors.put(error.getField(), "The field " + error.getField() + " " + error.getDefaultMessage());
+		});
+		return ResponseEntity.badRequest().body(errors);
 	}
 
 }
