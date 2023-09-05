@@ -24,7 +24,7 @@ export const UserForm = ({ userSelected, handlerCloseForm, errors }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    /*if (!username || (!password && id === 0) || !email) {
+    if (!username || (!password && id === 0) || !email) {
       Swal.fire(
         "Validation Error",
         "You have to complete all the fields",
@@ -40,11 +40,10 @@ export const UserForm = ({ userSelected, handlerCloseForm, errors }) => {
         "error"
       );
       return;
-    }*/
+    }
 
     //save userForm in the users list
     handlerAddUser(userForm);
-    setUserForm(initialUserForm);
   };
 
   const onCloseForm = () => {
@@ -61,6 +60,7 @@ export const UserForm = ({ userSelected, handlerCloseForm, errors }) => {
         value={username}
         onChange={onInputChange}
       />
+      <p className="text-danger">{errors?.username}</p>
       {id <= 0 && (
         <input
           className="form-control my-3 w-75"
@@ -71,7 +71,7 @@ export const UserForm = ({ userSelected, handlerCloseForm, errors }) => {
           onChange={onInputChange}
         />
       )}
-
+      <p className="text-danger">{errors?.password}</p>
       <input
         className="form-control my-3 w-75"
         placeholder="Email"
@@ -79,6 +79,7 @@ export const UserForm = ({ userSelected, handlerCloseForm, errors }) => {
         value={email}
         onChange={onInputChange}
       />
+      <p className="text-danger">{errors?.email}</p>
       <input type="hidden" name="id" value={id} />
       <button className="btn btn-primary" type="submit">
         {id > 0 ? "Edit" : "Create"}
@@ -100,4 +101,5 @@ export const UserForm = ({ userSelected, handlerCloseForm, errors }) => {
 UserForm.propTypes = {
   userSelected: PropTypes.object.isRequired,
   handlerCloseForm: PropTypes.func,
+  errors: PropTypes.object,
 };
