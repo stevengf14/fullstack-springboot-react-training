@@ -13,10 +13,18 @@ const initialUserForm = {
   email: "",
 };
 
+const initialErrors = {
+  username: "",
+  password: "",
+  email: "",
+};
+
 export const useUsers = () => {
   const [users, dispatch] = useReducer(usersReducer, initialUsers);
   const [userSelected, setUserSelected] = useState(initialUserForm);
   const [visibleForm, setVisibleForm] = useState(false);
+  const [errors, setErrors] = useState(initialErrors);
+
   const navigate = useNavigate();
 
   const getUsers = async () => {
@@ -31,24 +39,32 @@ export const useUsers = () => {
     const type = user.id === 0 ? "ADD_USER" : "UPDATE_USER";
 
     let response;
-    if (type === "ADD_USER") {
-      response = await save(user);
-    } else {
-      response = await update(user);
+    try {
+      if (type === "ADD_USER") {
+        response = await save(user);
+      } else {
+        response = await update(user);
+      }
+
+      dispatch({
+        type,
+        payload: response.data,
+      });
+
+      Swal.fire(
+        user.id === 0 ? "User Created" : "User Updated",
+        user.id === 0 ? "User has been created!" : "User has been updated!",
+        "success"
+      );
+      handlerCloseForm();
+      navigate("/users");
+    } catch (error) {
+      if (error.response && error.response.status == 400) {
+        setErrors(error.response.data);
+      } else {
+        throw error;
+      }
     }
-
-    dispatch({
-      type,
-      payload: response.data,
-    });
-
-    Swal.fire(
-      user.id === 0 ? "User Created" : "User Updated",
-      user.id === 0 ? "User has been created!" : "User has been updated!",
-      "success"
-    );
-    handlerCloseForm();
-    navigate("/users");
   };
 
   const handlerRemoveUser = (id) => {
@@ -91,6 +107,7 @@ export const useUsers = () => {
     userSelected,
     initialUserForm,
     visibleForm,
+    errors,
     handlerAddUser,
     handlerRemoveUser,
     handlerUserSelectedForm,

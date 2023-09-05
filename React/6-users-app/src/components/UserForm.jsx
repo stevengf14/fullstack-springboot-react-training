@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { UserContext } from "../context/UserContext";
 
-export const UserForm = ({ userSelected, handlerCloseForm }) => {
+export const UserForm = ({ userSelected, handlerCloseForm, errors }) => {
   const { initialUserForm, handlerAddUser } = useContext(UserContext);
 
   const [userForm, setUserForm] = useState(initialUserForm);
@@ -24,7 +24,7 @@ export const UserForm = ({ userSelected, handlerCloseForm }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if (!username || (!password && id === 0) || !email) {
+    /*if (!username || (!password && id === 0) || !email) {
       Swal.fire(
         "Validation Error",
         "You have to complete all the fields",
@@ -40,7 +40,7 @@ export const UserForm = ({ userSelected, handlerCloseForm }) => {
         "error"
       );
       return;
-    }
+    }*/
 
     //save userForm in the users list
     handlerAddUser(userForm);
