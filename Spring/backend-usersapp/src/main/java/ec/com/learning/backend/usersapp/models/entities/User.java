@@ -19,7 +19,7 @@ public class User {
 	private Long id;
 
 	@NotEmpty
-	@Size(min=4, max=10)
+	@Size(min = 4, max = 10)
 	@Column(unique = true)
 	private String username;
 

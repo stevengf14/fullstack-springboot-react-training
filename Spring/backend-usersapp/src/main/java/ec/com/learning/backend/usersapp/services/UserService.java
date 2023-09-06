@@ -3,6 +3,7 @@ package ec.com.learning.backend.usersapp.services;
 import java.util.List;
 import java.util.Optional;
 
+import ec.com.learning.backend.usersapp.models.UserRequest;
 import ec.com.learning.backend.usersapp.models.entities.User;
 
 public interface UserService {
@@ -13,7 +14,7 @@ public interface UserService {
 
 	User save(User user);
 
-	Optional<User> update(User user, Long id);
+	Optional<User> update(UserRequest user, Long id);
 
 	void remove(Long id);
 

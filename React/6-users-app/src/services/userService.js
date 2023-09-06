@@ -21,7 +21,11 @@ export const save = async ({ username, email, password }) => {
 
 export const update = async ({ id, username, email }) => {
   try {
-    return await axios.put(`${BASE_URL}/${id}`, { username, email });
+    return await axios.put(`${BASE_URL}/${id}`, {
+      username,
+      email,
+      //password: "-",
+    });
   } catch (error) {
     throw error;
   }

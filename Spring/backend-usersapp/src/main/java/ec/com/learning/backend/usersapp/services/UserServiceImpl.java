@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ec.com.learning.backend.usersapp.models.UserRequest;
 import ec.com.learning.backend.usersapp.models.entities.User;
 import ec.com.learning.backend.usersapp.repositories.UserRepository;
 
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public Optional<User> update(User user, Long id) {
+	public Optional<User> update(UserRequest user, Long id) {
 		Optional<User> optional = this.findById(id);
 		User userOptional = null;
 		if (optional.isPresent()) {
