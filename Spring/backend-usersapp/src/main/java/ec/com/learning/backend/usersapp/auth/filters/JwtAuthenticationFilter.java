@@ -23,7 +23,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
-		return null;
+		
+		return authenticationManager.authenticate(null);
 	}
 
 	@Override
