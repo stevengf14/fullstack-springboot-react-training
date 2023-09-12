@@ -40,9 +40,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			user = new ObjectMapper().readValue(request.getInputStream(), User.class);
 			username = user.getUsername();
 			password = user.getPassword();
-
-			logger.info("Username from InputStream request (raw) " + username);
-			logger.info("Password from InputStream request (raw) " + password);
 		} catch (StreamReadException e) {
 			e.printStackTrace();
 		} catch (DatabindException e) {
