@@ -7,6 +7,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import ec.com.learning.backend.usersapp.auth.filters.JwtAuthenticationFilter;
@@ -17,6 +19,11 @@ public class SpringSecurityConfig {
 	@Autowired
 	private AuthenticationConfiguration authenticationConfiguration;;
 
+	@Bean
+	PasswordEncoder passwordEnconder() {
+		return NoOpPasswordEncoder.getInstance();
+	}
+	
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		return http.authorizeHttpRequests().requestMatchers(HttpMethod.GET, "/users").permitAll().anyRequest()
