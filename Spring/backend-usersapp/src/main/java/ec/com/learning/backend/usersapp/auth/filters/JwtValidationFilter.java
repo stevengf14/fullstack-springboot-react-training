@@ -1,6 +1,7 @@
 package ec.com.learning.backend.usersapp.auth.filters;
 
 import java.io.IOException;
+import java.util.Base64;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -26,6 +27,7 @@ public class JwtValidationFilter extends BasicAuthenticationFilter {
 		}
 
 		String token = header.replace("Bearer ", "");
+		byte[] tokenDecodeBytes = Base64.getDecoder().decode(token);
 	}
 
 }
