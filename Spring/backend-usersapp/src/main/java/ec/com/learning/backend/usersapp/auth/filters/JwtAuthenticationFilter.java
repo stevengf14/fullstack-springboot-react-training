@@ -15,6 +15,7 @@ import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import static ec.com.learning.backend.usersapp.auth.TokenJwtConfig.*;
 import ec.com.learning.backend.usersapp.models.entities.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -56,9 +57,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			Authentication authResult) throws IOException, ServletException {
 		String username = ((org.springframework.security.core.userdetails.User) authResult.getPrincipal())
 				.getUsername();
-		String originalInput = "some_secret_token." + username;
+		String originalInput = SECRET_KEY + "." + username;
 		String token = Base64.getEncoder().encodeToString(originalInput.getBytes());
-		response.addHeader("Authorization", "Bearer " + token);
+		response.addHeader(HEADER_AUTHORIZATION, PREFIX_TOKEN + token);
 		Map<String, Object> body = new HashMap<>();
 		body.put("token", token);
 		body.put("message", String.format("Hi %s, You have successfully logged in!", username));

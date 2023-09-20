@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import static ec.com.learning.backend.usersapp.auth.TokenJwtConfig.*;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,13 +31,13 @@ public class JwtValidationFilter extends BasicAuthenticationFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		String header = request.getHeader("Authorization");
-		if (header == null || !header.startsWith("Bearer ")) {
+		String header = request.getHeader(HEADER_AUTHORIZATION);
+		if (header == null || !header.startsWith(PREFIX_TOKEN)) {
 			chain.doFilter(request, response);
 			return;
 		}
 
-		String token = header.replace("Bearer ", "");
+		String token = header.replace(PREFIX_TOKEN, "");
 		byte[] tokenDecodeBytes = Base64.getDecoder().decode(token);
 		String tokenDecode = new String(tokenDecodeBytes);
 
@@ -44,10 +45,10 @@ public class JwtValidationFilter extends BasicAuthenticationFilter {
 		String secret = tokenArray[0];
 		String username = tokenArray[1];
 
-		if ("some_secret_token".equals(secret)) {
+		if (SECRET_KEY.equals(secret)) {
 			List<GrantedAuthority> authorities = new ArrayList<>();
 			authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username,
+			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, null,
 					authorities);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			chain.doFilter(request, response);
