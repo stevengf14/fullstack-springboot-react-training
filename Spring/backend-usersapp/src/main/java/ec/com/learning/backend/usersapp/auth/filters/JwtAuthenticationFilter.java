@@ -1,7 +1,6 @@
 package ec.com.learning.backend.usersapp.auth.filters;
 
 import java.io.IOException;
-import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;

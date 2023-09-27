@@ -16,6 +16,10 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+
 import static ec.com.learning.backend.usersapp.auth.TokenJwtConfig.*;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -38,22 +42,20 @@ public class JwtValidationFilter extends BasicAuthenticationFilter {
 		}
 
 		String token = header.replace(PREFIX_TOKEN, "");
-		byte[] tokenDecodeBytes = Base64.getDecoder().decode(token);
-		String tokenDecode = new String(tokenDecodeBytes);
 
-		String[] tokenArray = tokenDecode.split("\\.");
-		String secret = tokenArray[0];
-		String username = tokenArray[1];
+		try {
+			Claims claims = Jwts.parserBuilder().setSigningKey(SECRET_KEY).build().parseClaimsJws(token).getBody();
+			String username = claims.getSubject();
 
-		if (SECRET_KEY.equals(secret)) {
 			List<GrantedAuthority> authorities = new ArrayList<>();
 			authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, null,
 					authorities);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			chain.doFilter(request, response);
-		} else {
+		} catch (JwtException e) {
 			Map<String, String> body = new HashMap<>();
+			body.put("error", e.getMessage());
 			body.put("message", "JWT Token is not valid");
 			response.getWriter().write(new ObjectMapper().writeValueAsString(body));
 			response.setStatus(403);
