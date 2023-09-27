@@ -2,6 +2,7 @@ package ec.com.learning.backend.usersapp.auth.filters;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static ec.com.learning.backend.usersapp.auth.TokenJwtConfig.*;
 import ec.com.learning.backend.usersapp.models.entities.User;
+import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -57,8 +59,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			Authentication authResult) throws IOException, ServletException {
 		String username = ((org.springframework.security.core.userdetails.User) authResult.getPrincipal())
 				.getUsername();
-		String originalInput = SECRET_KEY + "." + username;
-		String token = Base64.getEncoder().encodeToString(originalInput.getBytes());
+		String token = Jwts.builder().setSubject(username).signWith(SECRET_KEY).setIssuedAt(new Date())
+				.setExpiration(new Date(System.currentTimeMillis() + 3600000)).compact();
+
 		response.addHeader(HEADER_AUTHORIZATION, PREFIX_TOKEN + token);
 		Map<String, Object> body = new HashMap<>();
 		body.put("token", token);
