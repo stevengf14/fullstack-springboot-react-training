@@ -3,6 +3,7 @@ package ec.com.learning.backend.usersapp.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ec.com.learning.backend.usersapp.models.dto.UserDto;
+import ec.com.learning.backend.usersapp.models.dto.mapper.DtoUserMapper;
 import ec.com.learning.backend.usersapp.models.entities.Role;
 import ec.com.learning.backend.usersapp.models.entities.User;
 import ec.com.learning.backend.usersapp.models.request.UserRequest;
@@ -31,19 +34,24 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<User> findAll() {
-		return (List<User>) repository.findAll();
+	public List<UserDto> findAll() {
+		List<User> users = (List<User>) repository.findAll();
+		return users.stream().map(user -> DtoUserMapper.builder().setUser(user).build()).collect(Collectors.toList());
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Optional<User> findById(Long id) {
-		return repository.findById(id);
+	public Optional<UserDto> findById(Long id) {
+		Optional<User> optional = repository.findById(id);
+		if (optional.isPresent()) {
+			return Optional.of(DtoUserMapper.builder().setUser(optional.orElseThrow()).build());
+		}
+		return Optional.empty();
 	}
 
 	@Override
 	@Transactional
-	public User save(User user) {
+	public UserDto save(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 
 		Optional<Role> o = roleRepository.findByName("ROLE_USER");
@@ -52,22 +60,22 @@ public class UserServiceImpl implements UserService {
 			roles.add(o.orElseThrow());
 		}
 		user.setRoles(roles);
-		return repository.save(user);
+		return DtoUserMapper.builder().setUser(repository.save(user)).build();
 	}
 
 	@Override
 	@Transactional
-	public Optional<User> update(UserRequest user, Long id) {
-		Optional<User> optional = this.findById(id);
+	public Optional<UserDto> update(UserRequest user, Long id) {
+		Optional<User> optional = repository.findById(id);
 		User userOptional = null;
 		if (optional.isPresent()) {
 			User userDb = optional.orElseThrow();
 			userDb.setUsername(user.getUsername());
 			userDb.setEmail(user.getEmail());
 			// return Optional.of(this.save(userDb));
-			userOptional = this.save(userDb);
+			userOptional = repository.save(userDb);
 		}
-		return Optional.ofNullable(userOptional);
+		return Optional.ofNullable(DtoUserMapper.builder().setUser(userOptional).build());
 	}
 
 	@Override
