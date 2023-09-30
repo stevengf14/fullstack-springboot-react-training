@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ec.com.learning.backend.usersapp.models.UserRequest;
 import ec.com.learning.backend.usersapp.models.entities.User;
+import ec.com.learning.backend.usersapp.models.request.UserRequest;
 import ec.com.learning.backend.usersapp.services.UserService;
 import jakarta.validation.Valid;
 

@@ -11,9 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ec.com.learning.backend.usersapp.models.UserRequest;
 import ec.com.learning.backend.usersapp.models.entities.Role;
 import ec.com.learning.backend.usersapp.models.entities.User;
+import ec.com.learning.backend.usersapp.models.request.UserRequest;
 import ec.com.learning.backend.usersapp.repositories.RoleRepository;
 import ec.com.learning.backend.usersapp.repositories.UserRepository;
 

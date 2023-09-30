@@ -1,4 +1,4 @@
-package ec.com.learning.backend.usersapp.models;
+package ec.com.learning.backend.usersapp.models.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
