@@ -29,11 +29,13 @@ export const Navbar = () => {
                 Users
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/users/registration">
-                User Registration
-              </NavLink>
-            </li>
+            {login.isAdmin && (
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/users/registration">
+                  User Registration
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
 
