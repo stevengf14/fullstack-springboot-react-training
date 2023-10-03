@@ -19,7 +19,7 @@ export const useAuth = () => {
       const response = await loginUser({ username, password });
       const token = response.data.token;
       const claims = JSON.parse(window.atob(token.split(".")[1]));
-      const user = { username: claims.username };
+      const user = { username: claims.sub };
       dispatch({
         type: "LOGIN",
         payload: { user, isAdmin: claims.isAdmin },
