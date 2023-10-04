@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import axios from "axios";
 
 const BASE_URL = "http://localhost:8080/users";
@@ -48,6 +49,6 @@ export const remove = async (id) => {
   try {
     await axios.delete(`${BASE_URL}/${id}`, config());
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };

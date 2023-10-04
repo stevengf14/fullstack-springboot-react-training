@@ -60,7 +60,7 @@ public class JwtValidationFilter extends BasicAuthenticationFilter {
 			body.put("error", e.getMessage());
 			body.put("message", "JWT Token is not valid");
 			response.getWriter().write(new ObjectMapper().writeValueAsString(body));
-			response.setStatus(403);
+			response.setStatus(401);
 			response.setContentType("application/json");
 		}
 	}

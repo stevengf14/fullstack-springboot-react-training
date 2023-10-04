@@ -25,7 +25,7 @@ export const useUsers = () => {
   const [userSelected, setUserSelected] = useState(initialUserForm);
   const [visibleForm, setVisibleForm] = useState(false);
   const [errors, setErrors] = useState(initialErrors);
-  const { login } = useContext(AuthContext);
+  const { login, handlerLogout } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -75,6 +75,8 @@ export const useUsers = () => {
         if (error.response.data.message.includes("UK_email")) {
           setErrors({ email: "Email already exists!" });
         }
+      } else if (error.response?.status === 401) {
+        handlerLogout();
       } else {
         throw error;
       }
@@ -91,14 +93,20 @@ export const useUsers = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        remove(id);
-        dispatch({
-          type: "REMOVE_USER",
-          payload: id,
-        });
-        Swal.fire("User Deleted!", "User has been deleted.", "success");
+        try {
+          await remove(id);
+          dispatch({
+            type: "REMOVE_USER",
+            payload: id,
+          });
+          Swal.fire("User Deleted!", "User has been deleted.", "success");
+        } catch (error) {
+          if (error.response?.status === 401) {
+            handlerLogout();
+          }
+        }
       }
     });
   };
