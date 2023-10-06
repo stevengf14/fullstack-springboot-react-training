@@ -1,58 +1,39 @@
-/* eslint-disable no-useless-catch */
-import axios from "axios";
+import usersApi from "../apis/usersApi";
 
-const BASE_URL = "http://localhost:8080/users";
-
-const config = () => {
-  return {
-    headers: {
-      Authorization: sessionStorage.getItem("token"),
-      "Content-Type": "application/json",
-    },
-  };
-};
+const BASE_URL = "";
 
 export const findAll = async () => {
   try {
-    return await axios.get(BASE_URL);
+    return await usersApi.get(BASE_URL);
   } catch (error) {
-    console.log(error);
+    throw error.response;
   }
-  return null;
 };
 
 export const save = async ({ username, email, password, admin }) => {
   try {
-    return await axios.post(
-      BASE_URL,
-      { username, email, password, admin },
-      config()
-    );
+    return await usersApi.post(BASE_URL, { username, email, password, admin });
   } catch (error) {
-    throw error;
+    throw error.response;
   }
 };
 
 export const update = async ({ id, username, email, admin }) => {
   try {
-    return await axios.put(
-      `${BASE_URL}/${id}`,
-      {
-        username,
-        email,
-        admin,
-      },
-      config()
-    );
+    return await usersApi.put(`${BASE_URL}/${id}`, {
+      username,
+      email,
+      admin,
+    });
   } catch (error) {
-    throw error;
+    throw error.response;
   }
 };
 
 export const remove = async (id) => {
   try {
-    await axios.delete(`${BASE_URL}/${id}`, config());
+    await usersApi.delete(`${BASE_URL}/${id}`);
   } catch (error) {
-    throw error;
+    throw error.response;
   }
 };
