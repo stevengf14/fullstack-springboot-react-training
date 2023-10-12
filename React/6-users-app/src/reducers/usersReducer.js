@@ -1,6 +1,6 @@
 export const usersReducer = (state = [], action) => {
   switch (action.type) {
-    case "ADD_USER":
+    case "addUser":
       return [
         ...state,
         {
@@ -8,16 +8,16 @@ export const usersReducer = (state = [], action) => {
           id: new Date().getTime(),
         },
       ];
-    case "UPDATE_USER":
+    case "updateUser":
       return state.map((user) => {
         if (user.id === action.payload.id) {
           return { ...action.payload, password: user.password };
         }
         return user;
       });
-    case "REMOVE_USER":
+    case "removeUser":
       return [...state.filter((user) => user.id !== action.payload)];
-    case "LOAD_USERS":
+    case "loadUsers":
       return action.payload;
     default:
       return;

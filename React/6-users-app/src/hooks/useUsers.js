@@ -4,35 +4,26 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { findAll, remove, save, update } from "../services/userService";
 import { AuthContext } from "../auth/context/AuthContext";
-import { useDispatch, useSelector } from "react-redux";
 import {
-  ADD_USER,
-  UPDATE_USER,
-  REMOVE_USER,
-  LOAD_USERS,
+  useDispatch,
+  useSelector,
+  onUserSelectedForm,
+  onOpenForm,
+} from "react-redux";
+import {
+  initialUserForm,
+  addUser,
+  updateUser,
+  removeUser,
+  loadUsers,
+  onCloseForm,
 } from "../store/slices/users/usersSlice";
 
-const initialUserForm = {
-  id: 0,
-  username: "",
-  password: "",
-  email: "",
-  admin: false,
-};
-
-const initialErrors = {
-  username: "",
-  password: "",
-  email: "",
-};
-
 export const useUsers = () => {
-  // const [users, dispatch] = useReducer(usersReducer, initialUsers);
   const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.users);
-  const [userSelected, setUserSelected] = useState(initialUserForm);
-  const [visibleForm, setVisibleForm] = useState(false);
-  const [errors, setErrors] = useState(initialErrors);
+  const { users, userSelected, visibleForm, errors } = useSelector(
+    (state) => state.users
+  );
   const { login, handlerLogout } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -40,7 +31,7 @@ export const useUsers = () => {
   const getUsers = async () => {
     try {
       const result = await findAll();
-      dispatch(LOAD_USERS(result.data));
+      dispatch(loadUsers(result.data));
     } catch (error) {
       if (error.response?.status === 401) {
         handlerLogout();
@@ -50,16 +41,16 @@ export const useUsers = () => {
 
   const handlerAddUser = async (user) => {
     if (!login.isAdmin) return;
-    const type = user.id === 0 ? "ADD_USER" : "UPDATE_USER";
+    const type = user.id === 0 ? "addUser" : "updateUser";
 
     let response;
     try {
-      if (type === "ADD_USER") {
+      if (type === "addUser") {
         response = await save(user);
-        dispatch(ADD_USER(response.data));
+        dispatch(addUser(response.data));
       } else {
         response = await update(user);
-        dispatch(UPDATE_USER(response.data));
+        dispatch(updateUser(response.data));
       }
       Swal.fire(
         user.id === 0 ? "User Created" : "User Updated",
@@ -104,7 +95,7 @@ export const useUsers = () => {
       if (result.isConfirmed) {
         try {
           await remove(id);
-          dispatch(REMOVE_USER(id));
+          dispatch(removeUser(id));
           Swal.fire("User Deleted!", "User has been deleted.", "success");
         } catch (error) {
           if (error.response?.status === 401) {
@@ -116,17 +107,15 @@ export const useUsers = () => {
   };
 
   const handlerUserSelectedForm = (user) => {
-    setVisibleForm(true);
-    setUserSelected({ ...user });
+    dispatch(onUserSelectedForm({ ...user }));
   };
 
   const handlerOpenForm = () => {
-    setVisibleForm(true);
+    dispatch(onOpenForm());
   };
 
   const handlerCloseForm = () => {
-    setVisibleForm(false);
-    setUserSelected(initialUserForm);
+    dispatch(onCloseForm());
     setErrors({});
   };
 
