@@ -17,6 +17,7 @@ import {
   removeUser,
   loadUsers,
   onCloseForm,
+  loadError,
 } from "../store/slices/users/usersSlice";
 
 export const useUsers = () => {
@@ -61,17 +62,17 @@ export const useUsers = () => {
       navigate("/users");
     } catch (error) {
       if (error.response && error.response.status == 400) {
-        setErrors(error.response.data);
+        dispatch(loadError(error.response.data));
       } else if (
         error.response &&
         error.response.status === 500 &&
         error.response.data?.message?.includes("constraint")
       ) {
         if (error.response.data.message.includes("UK_username")) {
-          setErrors({ username: "Username already exists!" });
+          dispatch(loadError({ username: "Username already exists!" }));
         }
         if (error.response.data.message.includes("UK_email")) {
-          setErrors({ email: "Email already exists!" });
+          dispatch(loadError({ email: "Email already exists!" }));
         }
       } else if (error.response?.status === 401) {
         handlerLogout();
@@ -116,7 +117,7 @@ export const useUsers = () => {
 
   const handlerCloseForm = () => {
     dispatch(onCloseForm());
-    setErrors({});
+    dispatch(loadError({}));
   };
 
   return {
