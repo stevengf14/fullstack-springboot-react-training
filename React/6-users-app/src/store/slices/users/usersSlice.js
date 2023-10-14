@@ -23,7 +23,7 @@ export const usersSlice = createSlice({
     errors: initialErrors,
   },
   reducers: {
-    addUser: (state, payload) => {
+    addUser: (state, { payload }) => {
       state.users = [
         ...state.users,
         {
@@ -33,7 +33,7 @@ export const usersSlice = createSlice({
       state.userSelected = initialUserForm;
       state.visibleForm = false;
     },
-    updateUser: (state, payload) => {
+    updateUser: (state, { payload }) => {
       state.users = state.users.map((user) => {
         if (user.id === payload.id) {
           return { ...payload };
@@ -43,13 +43,13 @@ export const usersSlice = createSlice({
       state.userSelected = initialUserForm;
       state.visibleForm = false;
     },
-    removeUser: (state, payload) => {
+    removeUser: (state, { payload }) => {
       state.users = state.users.filter((user) => user.id !== payload);
     },
-    loadUsers: (state, payload) => {
+    loadUsers: (state, { payload }) => {
       state.users = payload;
     },
-    onUserSelectedForm: (state, payload) => {
+    onUserSelectedForm: (state, { payload }) => {
       state.userSelected = payload;
       state.visibleForm = true;
     },

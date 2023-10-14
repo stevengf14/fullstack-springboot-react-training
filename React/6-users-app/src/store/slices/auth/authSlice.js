@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialLogin = JSON.parse(sessionStorage.getItem("LOGIN")) || {
+const initialLogin = JSON.parse(sessionStorage.getItem("login")) || {
   isAuth: false,
   isAdmin: false,
   user: undefined,
@@ -10,7 +10,7 @@ export const authSlice = createSlice({
   name: "auth",
   initialState: initialLogin,
   reducers: {
-    onLogin: (state, payload) => {
+    onLogin: (state, { payload }) => {
       state.isAuth = true;
       state.isAdmin = payload.isAdmin;
       state.user = payload.user;

@@ -16,14 +16,9 @@ export const useAuth = () => {
       const token = response.data.token;
       const claims = JSON.parse(window.atob(token.split(".")[1]));
       const user = { username: claims.sub };
-      dispatch(
-        onLogin({
-          isAdmin: claims.isAdmin,
-          user,
-        })
-      );
+      dispatch(onLogin({ user, isAdmin: claims.isAdmin }));
       sessionStorage.setItem(
-        "LOGIN",
+        "login",
         JSON.stringify({
           isAuth: true,
           isAdmin: claims.isAdmin,
@@ -49,8 +44,8 @@ export const useAuth = () => {
 
   const handlerLogout = () => {
     dispatch(onLogout());
-    sessionStorage.removeItem("LOGIN");
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("login");
     sessionStorage.clear();
   };
 

@@ -1,33 +1,29 @@
-import { useContext } from "react";
-
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { findAll, remove, save, update } from "../services/userService";
-import { AuthContext } from "../auth/context/AuthContext";
-import {
-  useDispatch,
-  useSelector,
-  onUserSelectedForm,
-  onOpenForm,
-} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   initialUserForm,
   addUser,
   updateUser,
   removeUser,
   loadUsers,
+  onUserSelectedForm,
+  onOpenForm,
   onCloseForm,
   loadError,
 } from "../store/slices/users/usersSlice";
+import { useAuth } from "../auth/hooks/useAuth";
 
 export const useUsers = () => {
-  const dispatch = useDispatch();
   const { users, userSelected, visibleForm, errors } = useSelector(
     (state) => state.users
   );
-  const { login, handlerLogout } = useContext(AuthContext);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { login, handlerLogout } = useAuth();
 
   const getUsers = async () => {
     try {
