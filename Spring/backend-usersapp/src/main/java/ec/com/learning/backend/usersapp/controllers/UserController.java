@@ -47,13 +47,6 @@ public class UserController {
 		return ResponseEntity.notFound().build();
 	}
 
-	/*
-	 * @PostMapping
-	 * 
-	 * @ResponseStatus(HttpStatus.CREATED) public User create(@RequestBody User
-	 * user) { return service.save(user); }
-	 */
-
 	@PostMapping
 	public ResponseEntity<?> create(@Valid @RequestBody User user, BindingResult result) {
 		if (result.hasErrors()) {
