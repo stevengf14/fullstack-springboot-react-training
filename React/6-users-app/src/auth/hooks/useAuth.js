@@ -6,6 +6,7 @@ import { onLogin, onLogout } from "../../store/slices/auth/authSlice";
 
 export const useAuth = () => {
   const dispatch = useDispatch();
+  
   const { user, isAdmin, isAuth } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
