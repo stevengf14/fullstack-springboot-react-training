@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -75,21 +77,27 @@ public class UserServiceImpl implements UserService {
 	public void remove(Long id) {
 		repository.deleteById(id);
 	}
-	
-	private List<Role> getRoles(IUser user){
+
+	private List<Role> getRoles(IUser user) {
 		Optional<Role> optionalUser = roleRepository.findByName("ROLE_USER");
 		List<Role> roles = new ArrayList<>();
 		if (optionalUser.isPresent()) {
 			roles.add(optionalUser.orElseThrow());
 		}
-		if(user.isAdmin()) {
+		if (user.isAdmin()) {
 			Optional<Role> optionalAdmin = roleRepository.findByName("ROLE_ADMIN");
-			if(optionalAdmin.isPresent()) {
+			if (optionalAdmin.isPresent()) {
 				roles.add(optionalAdmin.orElseThrow());
 			}
-			
+
 		}
 		return roles;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<UserDto> findAll(Pageable pageable) {
+		return repository.findAll(pageable).map(user -> DtoUserMapper.builder().setUser(user).build());
 	}
 
 }
