@@ -10,6 +10,14 @@ export const findAll = async () => {
   }
 };
 
+export const findAllPagination = async (page = 0) => {
+  try {
+    return await usersApi.get(`${BASE_URL}/page/${page}`);
+  } catch (error) {
+    throw error.response;
+  }
+};
+
 export const save = async ({ username, email, password, admin }) => {
   try {
     return await usersApi.post(BASE_URL, { username, email, password, admin });

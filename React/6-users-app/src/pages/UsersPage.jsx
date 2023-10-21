@@ -3,16 +3,19 @@ import { UsersList } from "../components/UsersList";
 import { useEffect } from "react";
 import { useUsers } from "../hooks/useUsers";
 import { useAuth } from "../auth/hooks/useAuth";
+import { useParams } from "react-router-dom";
 
 export const UsersPage = () => {
+  const { page } = useParams();
+
   const { users, visibleForm, isLoading, handlerOpenForm, getUsers } =
     useUsers();
 
   const { login } = useAuth();
 
   useEffect(() => {
-    getUsers();
-  }, []);
+    getUsers(page);
+  }, [, page]);
 
   if (isLoading) {
     return (
