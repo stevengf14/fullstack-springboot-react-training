@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useUsers } from "../hooks/useUsers";
 import { useAuth } from "../auth/hooks/useAuth";
 import { useParams } from "react-router-dom";
+import { Paginator } from "../components/Paginator";
 
 export const UsersPage = () => {
   const { page } = useParams();
@@ -46,7 +47,10 @@ export const UsersPage = () => {
                 There is no users in the system!
               </div>
             ) : (
-              <UsersList />
+              <>
+                <UsersList />
+                <Paginator url="/users/page" />
+              </>
             )}
           </div>
         </div>
