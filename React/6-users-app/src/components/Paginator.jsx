@@ -7,7 +7,7 @@ export const Paginator = ({ url }) => {
 
   return (
     <>
-      {paginator?.length === 0 || (
+      {paginator?.totalPages == 1 || (
         <ul className="pagination">
           {paginator.number == 0 || (
             <li className="page-item">
